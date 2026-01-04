@@ -4,8 +4,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import ReactMarkdown from "react-markdown";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function MarkdownEditor() {
+const [markdown, setMarkdown] = useState("# Hello Markdown\n\nType **bold**, *italic*, or `code` here.");
+
 
   return (
     <>
@@ -18,9 +19,37 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-     
-    </>
+       <div className="editor-container"></div>
+        <h1 className="app-title">Markdown Editor</h1>
+        <div className="panes">
+          <div className="pane input-pane">   
+           <h2>Input</h2>
+           <textarea
+            value={markdown}
+            onChange={(e) => setMarkdown(e.target.value)}
+            />
+          </div>
+          <div className="pane output-pane">
+            <h2>Output</h2>
+            <div className="preview">
+              <ReactMarkdown 
+              components={{
+                h1: ({ node, ...props }) => (
+                <h1 className="md-h1" {...props} />
+                ),
+              }}
+              >
+                {markdown}
+              </ReactMarkdown>
+            </div>
+          </div>
+            
+        </div>
+
+      
+
+   </>
   )
 }
 
-export default App
+
